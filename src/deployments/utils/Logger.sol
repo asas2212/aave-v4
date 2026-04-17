@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import 'forge-std/StdJson.sol';
-import 'forge-std/Vm.sol';
+import {Vm} from 'forge-std/Vm.sol';
 import {console2 as console} from 'forge-std/console2.sol';
 
 /// @title Logger

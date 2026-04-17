@@ -127,14 +127,17 @@ abstract contract AaveV4DeployBatchBaseScript is Script {
       }
     } else {
       // when grantRoles is false, roles are deferred to a later governance action
-      // These three admin addresses are still required at deploy time so they default to the deployer
+      // These two admin addresses are still required at deploy time so they default to the deployer
       // ACCESS_MANAGER_ADMIN_ROLE is also retained by the deployer
       _logWarning('roles: deferred (not granted during deployment)');
-      _logWarning(string.concat('treasury spoke owner', message, outcome));
-      sanitizedInputs.treasurySpokeOwner = deployer;
-
-      _logWarning(string.concat('proxy admin owner', message, outcome));
-      sanitizedInputs.proxyAdminOwner = deployer;
+      if (inputs.treasurySpokeOwner == address(0)) {
+        _logWarning(string.concat('treasury spoke owner', message, outcome));
+        sanitizedInputs.treasurySpokeOwner = deployer;
+      }
+      if (inputs.proxyAdminOwner == address(0)) {
+        _logWarning(string.concat('proxy admin owner', message, outcome));
+        sanitizedInputs.proxyAdminOwner = deployer;
+      }
     }
     if (inputs.gatewayOwner == address(0)) {
       _logWarning(string.concat('gateway owner', message, outcome));
